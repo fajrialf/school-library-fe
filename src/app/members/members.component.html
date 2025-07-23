@@ -1,0 +1,80 @@
+<!-- Table -->
+<div *ngIf="!edit">
+  <a class="btn btn-primary my-3" (click)="editForm(true)"> Create Member </a>
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of members">
+        <td>{{ member.name }}</td>
+        <td>{{ member.email }}</td>
+        <td>{{ member.phone }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-primary me-2"
+            (click)="editMode(member.id ?? 0)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="delete(member.id ?? 0)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="edit">
+  <form [formGroup]="memberForm">
+    <div class="mb-3">
+      <label>Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name"
+        formControlName="name"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        name="email"
+        formControlName="email"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label>Phone</label>
+      <input
+        type="text"
+        class="form-control"
+        name="phone"
+        formControlName="phone"
+        required
+      />
+    </div>
+    <button type="button" class="btn btn-success" (click)="submit()">
+      Save
+    </button>
+    <button
+      type="button"
+      class="mx-3 btn btn-success"
+      (click)="editForm(false)"
+    >
+      Cancel
+    </button>
+  </form>
+</div>
